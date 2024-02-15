@@ -16,11 +16,11 @@ namespace AndroidEmulatorHelper
             return BaseProcess.MainWindowTitle;
         }
 
-        public override BlueStacks[] GetList()
+        public override LDPlayer[] GetList()
         {
             Process[] processes = Process.GetProcessesByName("dnplayer");
 
-            return processes.Select(x => new BlueStacks(x)).ToArray();
+            return processes.Select(x => new LDPlayer(x)).ToArray();
         }
 
         public override IntPtr GetHwnd()
