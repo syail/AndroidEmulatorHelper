@@ -67,10 +67,9 @@ namespace AndroidEmulatorHelper
             }
         }
 
-        public async Task PostMessage(WMessages message, IntPtr wParam, IntPtr lParam)
+        public bool PostMessage(WMessages message, IntPtr wParam, IntPtr lParam)
         {
-            Win32Api.PostMessage(GetHwnd(), (uint)message, wParam, lParam);
-            await Task.Delay(5);
+            return Win32Api.PostMessage(GetHwnd(), (uint)message, wParam, lParam);
         }
 
         public override string ToString()
