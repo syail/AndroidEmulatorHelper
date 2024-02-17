@@ -1,8 +1,9 @@
 ﻿using System.Diagnostics;
+using System.Drawing;
 
 namespace AndroidEmulatorHelper
 {
-    public class LDPlayer : IAndroidEmulator
+    public class LDPlayer : AndroidEmulator
     {
         private readonly IntPtr _hwnd;
 
@@ -34,6 +35,12 @@ namespace AndroidEmulatorHelper
             IntPtr childWindow = Win32Api.FindWindowEx(parantWindow, 0, "RenderWindow", "TheRender");
 
             return childWindow;
+        }
+
+        public override string ToString()
+        {
+            Size screenSize = GetScreenSize();
+            return $"[LDPlayer] {GetProcessName()} ({screenSize.Width}x{screenSize.Height})";
         }
     }
 }

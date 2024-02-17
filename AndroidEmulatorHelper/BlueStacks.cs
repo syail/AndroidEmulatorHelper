@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace AndroidEmulatorHelper
 {
-    public class BlueStacks : IAndroidEmulator
+    public class BlueStacks : AndroidEmulator
     {
         private readonly IntPtr _hwnd;
 
@@ -52,6 +52,12 @@ namespace AndroidEmulatorHelper
                 throw new Exception("Cannot find screen handle.");
             }
             return childHandle;
+        }
+
+        public override string ToString()
+        {
+            Size screenSize = GetScreenSize();
+            return $"[BlueStacks] {GetProcessName()} ({screenSize.Width}x{screenSize.Height})";
         }
     }
 }
