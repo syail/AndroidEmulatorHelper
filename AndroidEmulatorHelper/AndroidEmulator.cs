@@ -67,6 +67,12 @@ namespace AndroidEmulatorHelper
             }
         }
 
+        public async Task PostMessage(WMessages message, IntPtr wParam, IntPtr lParam)
+        {
+            Win32Api.PostMessage(GetHwnd(), (uint)message, wParam, lParam);
+            await Task.Delay(5);
+        }
+
         public override string ToString()
         {
             Size screenSize = GetScreenSize();
