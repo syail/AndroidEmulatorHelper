@@ -17,7 +17,7 @@ namespace AndroidEmulatorHelper
             return BaseProcess.MainWindowTitle;
         }
 
-        public override BlueStacks[] GetList()
+        public static BlueStacks[] GetList()
         {
             Process[] processes = Process.GetProcessesByName("HD-Player");
 

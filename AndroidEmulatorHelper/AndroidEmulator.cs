@@ -78,7 +78,6 @@ namespace AndroidEmulatorHelper
             return new(position.X | (position.Y << 16));
         }
 
-        public abstract IAndroidEmulator[] GetList();
         public abstract IntPtr GetHwnd();
         public abstract string GetProcessName();
     }

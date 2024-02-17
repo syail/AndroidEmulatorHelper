@@ -17,7 +17,7 @@ namespace AndroidEmulatorHelper
             return BaseProcess.MainWindowTitle;
         }
 
-        public override LDPlayer[] GetList()
+        public static LDPlayer[] GetList()
         {
             Process[] processes = Process.GetProcessesByName("dnplayer");
 
