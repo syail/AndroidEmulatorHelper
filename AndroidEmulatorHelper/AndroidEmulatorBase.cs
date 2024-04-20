@@ -1,17 +1,19 @@
 ﻿using System.Diagnostics;
 using System.Drawing;
+using System.Runtime.Versioning;
 
 namespace AndroidEmulatorHelper
 {
-    public abstract class AndroidEmulator : IAndroidEmulator
+    public abstract class AndroidEmulatorBase : IAndroidEmulatorBase
     {
         public Process BaseProcess { get; }
 
-        public AndroidEmulator(Process emulator)
+        public AndroidEmulatorBase(Process emulator)
         {
             BaseProcess = emulator;
         }
 
+        [SupportedOSPlatform("windows")]
         public Bitmap CaptureScreen()
         {
             IntPtr hwnd = GetHwnd();

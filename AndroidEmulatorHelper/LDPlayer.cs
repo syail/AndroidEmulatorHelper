@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace AndroidEmulatorHelper
 {
-    public class LDPlayer : AndroidEmulator
+    public class LDPlayer : AndroidEmulatorBase
     {
         private readonly IntPtr _hwnd;
 
@@ -31,10 +31,10 @@ namespace AndroidEmulatorHelper
 
         private IntPtr FindProcessHwnd()
         {
-            IntPtr parantWindow = Win32Api.FindWindow("LDPlayerMainFrame", GetProcessName());
-            IntPtr childWindow = Win32Api.FindWindowEx(parantWindow, 0, "RenderWindow", "TheRender");
+            IntPtr mainFrame = Win32Api.FindWindow("LDPlayerMainFrame", GetProcessName());
+            IntPtr screenRenderer = Win32Api.FindWindowEx(mainFrame, 0, "RenderWindow", "TheRender");
 
-            return childWindow;
+            return screenRenderer;
         }
 
         public override string ToString()

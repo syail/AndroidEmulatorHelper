@@ -2,7 +2,7 @@
 
 namespace AndroidEmulatorHelper
 {
-    public interface IAndroidEmulator
+    public interface IAndroidEmulatorBase
     {
         IntPtr GetHwnd();
         string GetProcessName();
