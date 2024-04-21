@@ -30,3 +30,4 @@ currentEmulator.CaptureScreen().Save("screenshot.png");
 
 - [ ] x86_64 memory scanning
 - [ ] Send ADB command
+- [ ] Support MEMu, Nox
