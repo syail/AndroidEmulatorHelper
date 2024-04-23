@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace AndroidEmulatorHelper
 {
-    public class BlueStacks : AndroidEmulatorBase
+    public class BlueStacks : EmulatorBase
     {
         private readonly IntPtr _hwnd;
 

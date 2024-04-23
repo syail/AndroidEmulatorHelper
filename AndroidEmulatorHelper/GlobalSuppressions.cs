@@ -5,4 +5,4 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Interoperability", "CA1416:플랫폼 호환성 유효성 검사", Justification = "<보류 중>", Scope = "member", Target = "~M:AndroidEmulatorHelper.IAndroidEmulatorBase.CaptureScreen~System.Drawing.Bitmap")]
+[assembly: SuppressMessage("Interoperability", "CA1416:플랫폼 호환성 유효성 검사", Justification = "<보류 중>", Scope = "member", Target = "~M:AndroidEmulatorHelper.IEmulatorBase.CaptureScreen~System.Drawing.Bitmap")]

@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace AndroidEmulatorHelper
 {
-    public class LDPlayer : AndroidEmulatorBase
+    public class LDPlayer : EmulatorBase
     {
         private readonly IntPtr _hwnd;
 

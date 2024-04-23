@@ -4,11 +4,11 @@ using System.Runtime.Versioning;
 
 namespace AndroidEmulatorHelper
 {
-    public abstract class AndroidEmulatorBase : IAndroidEmulatorBase
+    public abstract class EmulatorBase : IEmulatorBase
     {
         public Process BaseProcess { get; }
 
-        public AndroidEmulatorBase(Process emulator)
+        public EmulatorBase(Process emulator)
         {
             BaseProcess = emulator;
         }
