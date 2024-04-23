@@ -1,11 +1,11 @@
 ﻿using System.Diagnostics;
 using System.Drawing;
 
-namespace AndroidEmulatorHelper
+namespace AndroidEmulatorHelper.Emulator
 {
     public class LDPlayer : EmulatorBase
     {
-        private readonly IntPtr _hwnd;
+        private readonly nint _hwnd;
 
         public LDPlayer(Process ldProc) : base(ldProc)
         {
@@ -24,15 +24,15 @@ namespace AndroidEmulatorHelper
             return processes.Select(x => new LDPlayer(x)).ToArray();
         }
 
-        public override IntPtr GetHwnd()
+        public override nint GetHwnd()
         {
             return _hwnd;
         }
 
-        private IntPtr FindProcessHwnd()
+        private nint FindProcessHwnd()
         {
-            IntPtr mainFrame = Win32Api.FindWindow("LDPlayerMainFrame", GetProcessName());
-            IntPtr screenRenderer = Win32Api.FindWindowEx(mainFrame, 0, "RenderWindow", "TheRender");
+            nint mainFrame = Win32Api.FindWindow("LDPlayerMainFrame", GetProcessName());
+            nint screenRenderer = Win32Api.FindWindowEx(mainFrame, 0, "RenderWindow", "TheRender");
 
             return screenRenderer;
         }

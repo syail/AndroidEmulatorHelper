@@ -1,11 +1,11 @@
 ﻿using System.Diagnostics;
 using System.Drawing;
 
-namespace AndroidEmulatorHelper
+namespace AndroidEmulatorHelper.Emulator
 {
     public class BlueStacks : EmulatorBase
     {
-        private readonly IntPtr _hwnd;
+        private readonly nint _hwnd;
 
         public BlueStacks(Process ldProc) : base(ldProc)
         {
@@ -24,30 +24,30 @@ namespace AndroidEmulatorHelper
             return processes.Select(x => new BlueStacks(x)).ToArray();
         }
 
-        public override IntPtr GetHwnd()
+        public override nint GetHwnd()
         {
             return _hwnd;
         }
 
         public override async Task Click(Point position)
         {
-            IntPtr hwnd = GetHwnd();
-            IntPtr ptr = CalculatePositionValue(position);
+            nint hwnd = GetHwnd();
+            nint ptr = CalculatePositionValue(position);
 
-            Win32Api.PostMessage(hwnd, (uint)WMessages.WM_ACTIVATE, IntPtr.Zero, IntPtr.Zero);
-            Win32Api.PostMessage(hwnd, (int)WMessages.WM_LBUTTONDOWN, IntPtr.Zero, ptr);
+            Win32Api.PostMessage(hwnd, (uint)WMessages.WM_ACTIVATE, nint.Zero, nint.Zero);
+            Win32Api.PostMessage(hwnd, (int)WMessages.WM_LBUTTONDOWN, nint.Zero, ptr);
             await Task.Delay(5);
 
-            Win32Api.PostMessage(hwnd, (int)WMessages.WM_LBUTTONUP, IntPtr.Zero, ptr);
+            Win32Api.PostMessage(hwnd, (int)WMessages.WM_LBUTTONUP, nint.Zero, ptr);
             await Task.Delay(5);
         }
 
-        private IntPtr FindProcessHwnd()
+        private nint FindProcessHwnd()
         {
-            IntPtr parentHandle = Win32Api.FindWindow("Qt5154QWindowOwnDCIcon", GetProcessName());
-            IntPtr childHandle = Win32Api.FindWindowEx(parentHandle, 0, "Qt5154QWindowIcon", "HD-Player");
+            nint parentHandle = Win32Api.FindWindow("Qt5154QWindowOwnDCIcon", GetProcessName());
+            nint childHandle = Win32Api.FindWindowEx(parentHandle, 0, "Qt5154QWindowIcon", "HD-Player");
 
-            if (childHandle == IntPtr.Zero)
+            if (childHandle == nint.Zero)
             {
                 throw new Exception("Cannot find screen handle.");
             }

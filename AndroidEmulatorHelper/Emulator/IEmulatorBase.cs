@@ -1,10 +1,10 @@
 ﻿using System.Drawing;
 
-namespace AndroidEmulatorHelper
+namespace AndroidEmulatorHelper.Emulator
 {
     public interface IEmulatorBase
     {
-        IntPtr GetHwnd();
+        nint GetHwnd();
         string GetProcessName();
 
         Bitmap CaptureScreen();

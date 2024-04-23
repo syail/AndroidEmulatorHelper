@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Runtime.Versioning;
 
-namespace AndroidEmulatorHelper
+namespace AndroidEmulatorHelper.Emulator
 {
     public abstract class EmulatorBase : IEmulatorBase
     {
@@ -16,7 +16,7 @@ namespace AndroidEmulatorHelper
         [SupportedOSPlatform("windows")]
         public Bitmap CaptureScreen()
         {
-            IntPtr hwnd = GetHwnd();
+            nint hwnd = GetHwnd();
             using Graphics gdata = Graphics.FromHwnd(hwnd);
 
             Rectangle rect = Rectangle.Round(gdata.VisibleClipBounds);
@@ -24,7 +24,7 @@ namespace AndroidEmulatorHelper
 
             using Graphics g = Graphics.FromImage(bmp);
 
-            IntPtr hdc = g.GetHdc();
+            nint hdc = g.GetHdc();
 
             Win32Api.PrintWindow(hwnd, hdc, 0x2);
             g.ReleaseHdc(hdc);
@@ -44,32 +44,32 @@ namespace AndroidEmulatorHelper
          */
         public virtual async Task Click(Point position)
         {
-            IntPtr hwnd = GetHwnd();
-            IntPtr ptr = CalculatePositionValue(position);
+            nint hwnd = GetHwnd();
+            nint ptr = CalculatePositionValue(position);
 
-            Win32Api.PostMessage(hwnd, (int)WMessages.WM_LBUTTONDOWN, IntPtr.Zero, ptr);
+            Win32Api.PostMessage(hwnd, (int)WMessages.WM_LBUTTONDOWN, nint.Zero, ptr);
             await Task.Delay(5);
 
-            Win32Api.PostMessage(hwnd, (int)WMessages.WM_LBUTTONUP, IntPtr.Zero, ptr);
+            Win32Api.PostMessage(hwnd, (int)WMessages.WM_LBUTTONUP, nint.Zero, ptr);
             await Task.Delay(5);
         }
 
         public void SendChar(char key)
         {
-            Win32Api.PostMessage(GetHwnd(), (int)WMessages.WM_CHAR, (IntPtr)key, IntPtr.Zero);
+            Win32Api.PostMessage(GetHwnd(), (int)WMessages.WM_CHAR, key, nint.Zero);
         }
 
         public async Task SendString(string str)
         {
-            IntPtr hwnd = GetHwnd();
+            nint hwnd = GetHwnd();
             foreach (char i in str)
             {
-                Win32Api.PostMessage(hwnd, (int)WMessages.WM_CHAR, (IntPtr)i, IntPtr.Zero);
+                Win32Api.PostMessage(hwnd, (int)WMessages.WM_CHAR, i, nint.Zero);
                 await Task.Delay(50);
             }
         }
 
-        public bool PostMessage(WMessages message, IntPtr wParam, IntPtr lParam)
+        public bool PostMessage(WMessages message, nint wParam, nint lParam)
         {
             return Win32Api.PostMessage(GetHwnd(), (uint)message, wParam, lParam);
         }
@@ -80,12 +80,12 @@ namespace AndroidEmulatorHelper
             return $"[AndroidEmulator] {GetProcessName()} ({screenSize.Width}x{screenSize.Height})";
         }
 
-        protected static IntPtr CalculatePositionValue(Point position)
+        protected static nint CalculatePositionValue(Point position)
         {
-            return new(position.X | (position.Y << 16));
+            return new(position.X | position.Y << 16);
         }
 
-        public abstract IntPtr GetHwnd();
+        public abstract nint GetHwnd();
         public abstract string GetProcessName();
     }
 
